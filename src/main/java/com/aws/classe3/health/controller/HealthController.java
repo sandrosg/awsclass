@@ -19,4 +19,5 @@ public class HealthController {
         // Retorna HTTP 200 OK com o JSON contendo o status
         return ResponseEntity.ok(response);
     }
+
 }
