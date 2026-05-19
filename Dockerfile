@@ -10,7 +10,7 @@ ENTRYPOINT ["java", "-Xms512m", "-Xmx1536m", "-jar", "app.jar"]FROM eclipse-temu
 
                                                                WORKDIR /app
 
-                                                               COPY target/class3-0.0.1-SNAPSHOT.jar app.jar
+                                                               COPY target/classe3-0.0.1-SNAPSHOT.jar app.jar
 
                                                                EXPOSE 8080
 
