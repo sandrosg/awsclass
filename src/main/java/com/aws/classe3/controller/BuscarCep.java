@@ -1,5 +1,7 @@
-package com.aws.classe3.health.controller;
+package com.aws.classe3.controller;
 
+import com.aws.classe3.infra.entity.Logs;
+import com.aws.classe3.service.LogService;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
@@ -10,6 +12,12 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api")
 public class BuscarCep {
+
+	private final LogService logService;
+
+	public BuscarCep(LogService logService) {
+		this.logService = logService;
+	}
 
 	public record CepRequest(String cep) {}
 
@@ -58,6 +66,8 @@ public class BuscarCep {
 			}
 
 			reader.close();
+
+			logService.saveLog(new Logs(cep));
 
 			return response.toString();
 

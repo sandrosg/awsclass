@@ -1,4 +1,4 @@
-package com.aws.classe3.health.controller;
+package com.aws.classe3.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

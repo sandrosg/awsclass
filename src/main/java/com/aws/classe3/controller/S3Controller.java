@@ -1,4 +1,4 @@
-package com.aws.classe3.health.controller;
+package com.aws.classe3.controller;
 
 import com.aws.classe3.service.S3Service;
 import org.springframework.http.ResponseEntity;
