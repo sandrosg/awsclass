@@ -1,7 +1,9 @@
 package com.aws.classe3.controller;
 
+import com.aws.classe3.dynamo.service.DynamoDBService;
 import com.aws.classe3.infra.entity.Logs;
 import com.aws.classe3.service.LogService;
+import io.awspring.cloud.dynamodb.DynamoDbTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
@@ -15,8 +17,11 @@ public class BuscarCep {
 
 	private final LogService logService;
 
-	public BuscarCep(LogService logService) {
+	private final DynamoDBService dynamoDBService;
+
+	public BuscarCep(LogService logService, DynamoDBService dynamoDBService) {
 		this.logService = logService;
+		this.dynamoDBService = dynamoDBService;
 	}
 
 	public record CepRequest(String cep) {}
@@ -68,6 +73,8 @@ public class BuscarCep {
 			reader.close();
 
 			logService.saveLog(new Logs(cep));
+
+			dynamoDBService.save(cep);
 
 			return response.toString();
 
