@@ -2,6 +2,7 @@ package com.aws.classe3.controller;
 
 import com.aws.classe3.infra.entity.Logs;
 import com.aws.classe3.service.LogService;
+import com.aws.classe3.service.SnsService;
 import com.aws.classe3.service.SqsService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +16,13 @@ import java.net.URI;
 public class BuscarCep {
 
 	private final LogService logService;
-
 	private final SqsService sqsService;
+	private final SnsService snsService;
 
-	public BuscarCep(LogService logService, SqsService sqsService) {
+	public BuscarCep(LogService logService, SqsService sqsService, SnsService snsService) {
 		this.logService = logService;
 		this.sqsService = sqsService;
+		this.snsService = snsService;
 	}
 
 	public record CepRequest(String cep) {}
@@ -75,6 +77,9 @@ public class BuscarCep {
 
 			// Envia para o SQS para processamento assíncrono (salvamento no DynamoDB)
 			sqsService.sendMessage(cep);
+
+			// Envia notificação por e-mail via SNS
+			snsService.sendNotification("Consulta de CEP", "Consultaram o CEP: " + cep);
 
 			return response.toString();
 
