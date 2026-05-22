@@ -15,7 +15,14 @@ public class SnsService {
     private String topicArn;
 
     public void sendNotification(String subject, String message) {
+        System.out.println("--------------------------------------------------");
+        System.out.println("SNS: Tentando enviar notificação...");
+        System.out.println("SNS: Tópico: " + topicArn);
+        System.out.println("SNS: Assunto: " + subject);
+        
         snsTemplate.sendNotification(topicArn, message, subject);
-        System.out.println("Notificação enviada via SNS para o tópico: " + topicArn);
+        
+        System.out.println("SNS: Método sendNotification executado sem erros.");
+        System.out.println("--------------------------------------------------");
     }
 }
